@@ -65,6 +65,7 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
 
+    implementation(libs.coil.compose)
     implementation(libs.compose.navigation)
 
     implementation(libs.hilt.android)
@@ -79,5 +80,5 @@ dependencies {
     implementation(libs.bundles.lifecycle.bundle)
 
     implementation(libs.bundles.retrofit.bundle)
-    testImplementation(libs.retrofit.mock)
+    testImplementation(libs.mock.web.server)
 }
