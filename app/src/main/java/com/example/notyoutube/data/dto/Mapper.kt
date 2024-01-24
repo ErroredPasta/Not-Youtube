@@ -1,5 +1,6 @@
 package com.example.notyoutube.data.dto
 
+import com.example.notyoutube.domain.model.VideoDetail
 import com.example.notyoutube.domain.model.VideoListItem
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -18,3 +19,16 @@ fun VideoListItemResponse.toDomain(): VideoListItem = VideoListItem(
 )
 
 fun List<VideoListItemResponse>.toDomain(): List<VideoListItem> = map { it.toDomain() }
+
+fun VideoDetailResponse.toDomain() = VideoDetail(
+    id = id,
+    videoUrl = videoUrl,
+    title = title,
+    view = view,
+    dateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").run {
+        LocalDateTime.parse(dateTime, this)
+    },
+    channelName = channelName,
+    channelThumbnail = channelThumbnail,
+    description = description
+)
