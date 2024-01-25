@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.compose.navigation)
     implementation(libs.hilt.navigation.compose)
+    implementation(libs.compose.constraint.layout)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
@@ -82,4 +83,6 @@ dependencies {
 
     implementation(libs.bundles.retrofit.bundle)
     testImplementation(libs.mock.web.server)
+
+    implementation(libs.exo.player)
 }
