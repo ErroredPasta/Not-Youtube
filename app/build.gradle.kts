@@ -84,7 +84,7 @@ dependencies {
     implementation(libs.bundles.retrofit.bundle)
     testImplementation(libs.mock.web.server)
 
-    implementation(libs.exo.player)
+    implementation(libs.bundles.media3.exo.player.bundle)
 
     implementation(project(":core:core-util"))
     implementation(project(":core:core-ui"))

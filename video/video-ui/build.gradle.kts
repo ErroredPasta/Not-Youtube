@@ -64,7 +64,7 @@ dependencies {
     implementation(libs.compose.navigation)
     implementation(libs.hilt.navigation.compose)
 
-    implementation(libs.exo.player)
+    implementation(libs.bundles.media3.exo.player.bundle)
 
     implementation(project(":core:core-util"))
     implementation(project(":core:core-ui"))
