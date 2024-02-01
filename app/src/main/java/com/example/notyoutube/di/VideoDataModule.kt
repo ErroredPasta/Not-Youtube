@@ -1,9 +1,9 @@
 package com.example.notyoutube.di
 
-import com.example.notyoutube.data.remote.FakeVideoApi
-import com.example.notyoutube.data.remote.VideoApi
-import com.example.notyoutube.data.repository.VideoRepositoryImpl
-import com.example.notyoutube.domain.repository.VideoRepository
+import com.example.video_data.remote.FakeVideoApi
+import com.example.video_data.remote.VideoApi
+import com.example.video_data.repository.VideoRepositoryImpl
+import com.example.video_domain.repository.VideoRepository
 import com.google.gson.Gson
 import dagger.Binds
 import dagger.Module

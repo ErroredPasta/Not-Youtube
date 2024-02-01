@@ -1,25 +1,19 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android.plugin)
 }
 
 android {
-    namespace = "com.example.notyoutube"
+    namespace = "com.example.video_ui"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.notyoutube"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -44,45 +38,31 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
 }
 
 dependencies {
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.bundles.compose.bundle)
+    implementation(libs.appcompat)
+    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(platform(libs.compose.bom))
+    implementation(libs.bundles.compose.bundle)
+    implementation(libs.compose.constraint.layout)
     androidTestImplementation(platform(libs.compose.ui.test.bom))
-    androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
 
     implementation(libs.coil.compose)
-    implementation(libs.compose.navigation)
-    implementation(libs.hilt.navigation.compose)
-    implementation(libs.compose.constraint.layout)
+    implementation(libs.bundles.lifecycle.bundle)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
-    testImplementation(libs.hilt.testing)
-    kspTest(libs.hilt.compiler)
-
-    implementation(libs.coroutine.android)
-    testImplementation(libs.coroutine.test)
-
-    implementation(libs.bundles.lifecycle.bundle)
-
-    implementation(libs.bundles.retrofit.bundle)
-    testImplementation(libs.mock.web.server)
+    implementation(libs.compose.navigation)
+    implementation(libs.hilt.navigation.compose)
 
     implementation(libs.exo.player)
 
@@ -90,6 +70,4 @@ dependencies {
     implementation(project(":core:core-ui"))
 
     implementation(project(":video:video-domain"))
-    implementation(project(":video:video-data"))
-    implementation(project(":video:video-ui"))
 }

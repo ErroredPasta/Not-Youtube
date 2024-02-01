@@ -11,10 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.notyoutube.ui.VideoListScreen
-import com.example.notyoutube.ui.theme.NotYoutubeTheme
+import com.example.core_ui.theme.NotYoutubeTheme
+import com.example.video_ui.videoGraph
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,10 +29,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
 
-                    NavHost(navController = navController, startDestination = "video_list") {
-                        composable(route = "video_list") {
-                            VideoListScreen()
-                        }
+                    NavHost(navController = navController, startDestination = "video") {
+                        videoGraph(navController = navController)
                     }
                 }
             }
