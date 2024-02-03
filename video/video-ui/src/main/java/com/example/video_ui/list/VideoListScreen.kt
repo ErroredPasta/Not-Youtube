@@ -23,15 +23,14 @@ fun VideoListScreen(
 
 @Composable
 fun VideoListScreenBody(
-    state: State,
+    state: State<List<VideoListItem>>,
 ) {
-    if (state is State.Success<*>) {
+    if (state is State.Success<List<VideoListItem>>) {
         LazyColumn(
             modifier = Modifier.fillMaxSize()
         ) {
-            @Suppress("UNCHECKED_CAST")
             items(
-                items = state.data as List<VideoListItem>,
+                items = state.data,
                 key = { item -> item.id }
             ) { item ->
                 VideoCard(

@@ -2,8 +2,9 @@ package com.example.video_ui.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.video_domain.repository.VideoRepository
 import com.example.core_util.State
+import com.example.video_domain.model.VideoListItem
+import com.example.video_domain.repository.VideoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,9 +16,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class VideoListScreenViewModel @Inject constructor(
-    private val repository: VideoRepository
+    private val repository: VideoRepository,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<State>(State.Loading)
+    private val _uiState = MutableStateFlow<State<List<VideoListItem>>>(State.Loading)
     val uiState = _uiState.onSubscription {
         getVideoList()
     }.stateIn(
