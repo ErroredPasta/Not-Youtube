@@ -16,14 +16,16 @@ import com.example.core_util.State
 @Composable
 fun VideoListScreen(
     viewModel: VideoListScreenViewModel = hiltViewModel(),
+    onClick: (VideoListItem) -> Unit
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    VideoListScreenBody(state = state)
+    VideoListScreenBody(state = state, onClick = onClick)
 }
 
 @Composable
 fun VideoListScreenBody(
     state: State<List<VideoListItem>>,
+    onClick: (VideoListItem) -> Unit
 ) {
     if (state is State.Success<List<VideoListItem>>) {
         LazyColumn(
@@ -41,7 +43,7 @@ fun VideoListScreenBody(
                     view = item.view,
                     dateTime = item.dateTime,
                     videoLength = item.length,
-                    onVideoClick = {}
+                    onVideoClick = { onClick(item) }
                 )
             }
         }
@@ -52,6 +54,6 @@ fun VideoListScreenBody(
 @Composable
 private fun VideoListScreenPreview() {
     NotYoutubeTheme {
-        VideoListScreenBody(state = State.Loading)
+        VideoListScreenBody(state = State.Loading, onClick = {})
     }
 }

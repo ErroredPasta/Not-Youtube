@@ -117,7 +117,7 @@ private fun Int.toTimeString(): String {
     return result
 }
 
-private fun LocalDateTime.calculateTimeDifferenceFromNow(): String {
+fun LocalDateTime.calculateTimeDifferenceFromNow(): String {
     val minutes = ChronoUnit.MINUTES.between(this, LocalDateTime.now())
     val hours = minutes / 60
     val days = hours / 24
