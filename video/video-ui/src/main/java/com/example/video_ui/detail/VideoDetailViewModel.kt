@@ -21,16 +21,8 @@ class VideoDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val repository: VideoRepository,
 ) : ViewModel() {
-    private val id = requireNotNull(savedStateHandle.get<String>("id"))
-
     private val videoDetail = MutableStateFlow<State<VideoDetail>>(State.Loading)
-
     private val videoList = MutableStateFlow<State<List<VideoListItem>>>(State.Loading)
-
-    init {
-        getVideoDetail()
-        getVideoList()
-    }
 
     val uiState = combine(videoDetail, videoList) { videoDetail, videoList ->
         when {
@@ -55,7 +47,7 @@ class VideoDetailViewModel @Inject constructor(
         initialValue = State.Loading
     )
 
-    private fun getVideoDetail() {
+    private fun getVideoDetail(id: String) {
         viewModelScope.launch {
             videoDetail.update { State.Success(repository.getVideoDetailById(id = id)) }
         }
@@ -65,5 +57,10 @@ class VideoDetailViewModel @Inject constructor(
         viewModelScope.launch {
             videoList.update { State.Success(repository.getVideoList()) }
         }
+    }
+
+    fun load(id: String) {
+        getVideoDetail(id = id)
+        getVideoList()
     }
 }
