@@ -66,6 +66,11 @@ dependencies {
 
     implementation(libs.bundles.media3.exo.player.bundle)
 
+    testImplementation(libs.coroutine.test)
+    testImplementation(libs.bundles.mockk.bundle)
+
+    testImplementation(libs.truth)
+
     implementation(project(":core:core-util"))
     implementation(project(":core:core-ui"))
 
