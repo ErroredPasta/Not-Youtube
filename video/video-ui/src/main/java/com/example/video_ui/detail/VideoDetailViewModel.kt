@@ -8,6 +8,7 @@ import com.example.video_domain.model.VideoDetail
 import com.example.video_domain.model.VideoListItem
 import com.example.video_domain.repository.VideoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -18,7 +19,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class VideoDetailViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
     private val repository: VideoRepository,
 ) : ViewModel() {
     private val videoDetail = MutableStateFlow<State<VideoDetail>>(State.Loading)
@@ -47,14 +47,22 @@ class VideoDetailViewModel @Inject constructor(
         initialValue = State.Loading
     )
 
+    private val videoDetailExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        videoDetail.update { State.Error(error = throwable) }
+    }
+
+    private val videoListExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        videoList.update { State.Error(error = throwable) }
+    }
+
     private fun getVideoDetail(id: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(videoDetailExceptionHandler) {
             videoDetail.update { State.Success(repository.getVideoDetailById(id = id)) }
         }
     }
 
     private fun getVideoList() {
-        viewModelScope.launch {
+        viewModelScope.launch(videoListExceptionHandler) {
             videoList.update { State.Success(repository.getVideoList()) }
         }
     }
