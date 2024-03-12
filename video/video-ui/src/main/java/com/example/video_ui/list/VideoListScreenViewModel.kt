@@ -6,6 +6,7 @@ import com.example.core_util.State
 import com.example.video_domain.model.VideoListItem
 import com.example.video_domain.repository.VideoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onSubscription
@@ -27,8 +28,12 @@ class VideoListScreenViewModel @Inject constructor(
         initialValue = State.Loading
     )
 
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        _uiState.update { State.Error(error = throwable) }
+    }
+
     fun getVideoList() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             _uiState.update { State.Loading }
 
             val videoList = repository.getVideoList()
